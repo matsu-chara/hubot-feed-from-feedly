@@ -1,0 +1,31 @@
+{
+  "name": "hubot-feed-from-feedly",
+  "version": "1.0.1",
+  "description": "get feed from feedly at 2 minute intervals or hubot feed",
+  "main": "index.coffee",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/matsu-chara/hubot-feed-from-feedly.git"
+  },
+  "keywords": [
+    "hubot",
+    "feedly"
+  ],
+  "dependencies": {
+    "asyncawait": "^0.7.2",
+    "bluebird": "^2.3.5",
+    "cron": "^1.0.5",
+    "request": "^2.45.0",
+    "underscore": "^1.7.0",
+    "underscore.string": "^2.3.3"
+  },
+  "author": "matsu-chara",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matsu-chara/hubot-feed-from-feedly/issues"
+  },
+  "homepage": "https://github.com/matsu-chara/hubot-feed-from-feedly"
+}
