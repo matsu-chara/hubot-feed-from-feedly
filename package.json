@@ -1,6 +1,6 @@
 {
   "name": "hubot-feed-from-feedly",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "get feed from feedly at 2 minute intervals or hubot feed",
   "main": "index.coffee",
   "scripts": {

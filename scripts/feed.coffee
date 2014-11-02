@@ -99,8 +99,6 @@ class Entry
 
   splitSourceName: () ->
     s = @sourceName
-    s = s.replace(/^All News on  'The Twitter Times: .*$/, "t") # 文字数節約
-    s = s.replace(/^はてなブックマーク - .*$/, "h") # 文字数節約
     s = s.replace(".", ",") # 自動リンク避け
     return s
 
