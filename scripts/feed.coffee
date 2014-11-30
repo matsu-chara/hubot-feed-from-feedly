@@ -97,17 +97,6 @@ class Entry
   constructor: (@sourceName, @id, @category, @title, @url) ->
     return
 
-  splitSourceName: () ->
-    s = @sourceName
-    s = s.replace(".", ",") # 自動リンク避け
-    return s
-
-  escapeTitle: () ->
-    t = @title
-    t = t.replace("@", "!") # 誤メンション避け
-    t = t.replace("#", "?") # ハッシュタグ避け
-    t = t.replace(".", ",") # 自動リンク避け
-
   breakText: (text) ->
     TEXT_LIMIT = 116 # 23 chars are reserved for url
 
@@ -129,9 +118,7 @@ class Entry
       return res.data.url
 
   makeTweetText: () ->
-    source = @splitSourceName()
-    title = @escapeTitle()
-    text = if source then "#{source} #{title}" else title
+    text = if source then "#{@sourceName} #{@title}" else @title
 
     return async () =>
       text = @breakText(text)
@@ -161,23 +148,8 @@ processTask = (robot, envelope) ->
     unreadEntries =
       await _.map(unreadFeedIds, (id) -> f.fetchUnreadEntries id)
 
-    # 既読にしたくないエントリーを除外
-    markAsReadEntries =
-      _.chain(unreadEntries)
-        .flatten()
-        .reject((entry) -> _.str.endsWith(entry.category, '-no-bot'))
-        .value()
-
-    # メッセージを送信したくないエントリーを除外
-    # 重複メッセージを避けるため既読にしないエントリーはメッセージも送信しない
-    sendEntries =
-      _.reject(
-        markAsReadEntries
-        (entry) -> _.str.include(entry.url, '//twitter.com/')
-      )
-
     messages =
-      await _.map(sendEntries, (e) -> e.makeFeedText(isTwitter))
+      await _.map(unreadEntries, (e) -> e.makeFeedText(isTwitter))
 
     await _.map(messages, (m)-> robot.send(envelope, m))
     await f.markAsRead _.map(markAsReadEntries, (e)-> (e.id))
